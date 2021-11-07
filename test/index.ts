@@ -82,7 +82,7 @@ describe("Library", function () {
         .withArgs(addr1.address, 1, "test book", 0)
   });
 
-  it("Can we borrow book with 0 copies", async function () {
+  it("Users cannot borrow a book with 0 copies", async function () {
     expect(await library.addBook("test book", 0))
         .to.emit(library, 'NewBook')
         .withArgs(BigNumber, "test book", 0)
