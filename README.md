@@ -1,46 +1,50 @@
-# Advanced Sample Hardhat Project
+# Project requirements
+Develop a contract for book library:
+- The administrator (owner) of the library should be able to add new books and the number of copies in the library.
+- The administrator should not be able to add the same book twice.
+- Users should be able to see the available books and borrow them by their id.
+- Users should be able to return books.
+- A user should not borrow more than one copy of a book at a time. The users should not be able to borrow a book more times than the copies in the libraries unless copy is returned.
+- Everyone should be able to see the addresses of all people that have ever borrowed a given book.
 
-This project demonstrates an advanced Hardhat use case, integrating other tools commonly used alongside Hardhat in the ecosystem.
+# Project test coverage
+```
+--------------|----------|----------|----------|----------|----------------|
+File          |  % Stmts | % Branch |  % Funcs |  % Lines |Uncovered Lines |
+--------------|----------|----------|----------|----------|----------------|
+contracts/    |    91.11 |       75 |    81.82 |    87.27 |                |
+Library.sol   |    91.11 |       75 |    81.82 |    87.27 |... 78,79,80,82 |
+--------------|----------|----------|----------|----------|----------------|
+All files     |    91.11 |       75 |    81.82 |    87.27 |                |
+--------------|----------|----------|----------|----------|----------------|
+```
 
-The project comes with a sample contract, a test for that contract, a sample script that deploys that contract, and an example of a task implementation, which simply lists the available accounts. It also comes with a variety of other tools, preconfigured to work with the project code.
-
-Try running some of the following tasks:
-
-```shell
-npx hardhat accounts
-npx hardhat compile
-npx hardhat clean
+# Project Tests
+ To run project tests first run:
+```
+npm install
+```
+after that to run the tests execute:
+```
 npx hardhat test
-npx hardhat node
-npx hardhat help
-REPORT_GAS=true npx hardhat test
-npx hardhat coverage
-npx hardhat run scripts/deploy.ts
-TS_NODE_FILES=true npx ts-node scripts/deploy.ts
-npx eslint '**/*.{js,ts}'
-npx eslint '**/*.{js,ts}' --fix
-npx prettier '**/*.{json,sol,md}' --check
-npx prettier '**/*.{json,sol,md}' --write
-npx solhint 'contracts/**/*.sol'
-npx solhint 'contracts/**/*.sol' --fix
 ```
-
-# Etherscan verification
-
-To try out Etherscan verification, you first need to deploy a contract to an Ethereum network that's supported by Etherscan, such as Ropsten.
-
-In this project, copy the .env.example file to a file named .env, and then edit it to fill in the details. Enter your Etherscan API key, your Ropsten node URL (eg from Alchemy), and the private key of the account which will send the deployment transaction. With a valid .env file in place, first deploy your contract:
-
-```shell
-hardhat run --network ropsten scripts/sample-script.ts
+ You should see:
 ```
+  Library
+    ✓ Adding a book with empty name (40ms)
+    ✓ Only Owner can add a book (96ms)
+    ✓ Only Owner can add copies of a book (57ms)
+    ✓ Owner should not be able to add same book twice (43ms)
+    ✓ Users can borrow books by ID (41ms)
+    ✓ Can we borrow book with 0 copies
+    ✓ Users can return books (48ms)
+    ✓ Users cannot borrow more than 1 copy of a book (43ms)
+    ✓ See all book borrowers addresses (49ms)
+    ✓ Owner can withdraw full amount from contract to address (55ms)
+    ✓ Owner can withdraw some amount from contract to address, but not full (52ms)
+    ✓ Users cannot withdraw from contract (56ms)
 
-Then, copy the deployment address and paste it in to replace `DEPLOYED_CONTRACT_ADDRESS` in this command:
-
-```shell
-npx hardhat verify --network ropsten DEPLOYED_CONTRACT_ADDRESS "Hello, Hardhat!"
+  12 passing (2s)
 ```
-
-# Performance optimizations
-
-For faster runs of your tests and scripts, consider skipping ts-node's type checking by setting the environment variable `TS_NODE_TRANSPILE_ONLY` to `1` in hardhat's environment. For more details see [the documentation](https://hardhat.org/guides/typescript.html#performance-optimizations).
+# Other
+ Project uses Github actions to run the tests on PRs and master branch commits.
