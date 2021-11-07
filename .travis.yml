@@ -1,0 +1,8 @@
+dist: trusty
+language: node_js
+node_js:
+  - '16'
+install:
+  - npm install
+script:
+  - npx hardhat test
